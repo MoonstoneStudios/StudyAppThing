@@ -1,0 +1,24 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<LinearGradientBrush x:Key="PurpleGradient"
+		StartPoint="0%,0%" EndPoint="0%,100%">
+		<!--
+				<GradientStop Offset="0" Color="#ff9966" />
+				<GradientStop Offset="1" Color="#ff5e62" />
+			-->
+		<!--
+				https://uigradients.com/#Amin
+			-->
+		<GradientStop Offset="0" Color="#8E2DE2" />
+		<GradientStop Offset="1" Color="#4A00E0" />
+	</LinearGradientBrush>
+
+	<LinearGradientBrush x:Key="OrangeGradient"
+		StartPoint="0%,0%" EndPoint="0%,100%">
+		<!-- https://uigradients.com/#Sunkist -->
+		<GradientStop Offset="0" Color="#F2994A" />
+		<GradientStop Offset="1" Color="#F2C94C" />
+	</LinearGradientBrush>
+
+</ResourceDictionary>

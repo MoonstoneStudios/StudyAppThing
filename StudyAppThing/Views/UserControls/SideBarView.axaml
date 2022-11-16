@@ -1,0 +1,66 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vms="using:StudyAppThing.ViewModels"
+			 xmlns:models="using:StudyAppThing.Models"
+             mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
+             x:Class="StudyAppThing.Views.UserControls.SideBarView"
+			 VerticalAlignment="Stretch"
+			 MinWidth="250"
+			 MaxWidth="400"
+			 Background="{StaticResource PurpleGradient}">
+
+	<UserControl.Styles>
+		<Styles>
+			<Style Selector="Button">
+				<Setter Property="VerticalContentAlignment" Value="Center" />
+				<Setter Property="HorizontalContentAlignment" Value="Center" />
+			</Style>
+		</Styles>
+	</UserControl.Styles>
+
+	<UserControl.DataContext>
+		<vms:SideBarViewModel />
+	</UserControl.DataContext>
+	
+	<Grid>
+		<StackPanel Orientation="Vertical">
+			<DropDown HorizontalAlignment="Stretch" Height="125"
+					  Items="{Binding User.Courses}">
+				<DropDown.ItemTemplate>
+					<DataTemplate DataType="models:Course">
+						<StackPanel Orientation="Horizontal">
+							<!--TODO: load images-->
+							<Image Source="{Binding ImageBitmap}" Width="50"
+								   Height="50"/>
+							<TextBlock Text="{Binding Name}" />
+						</StackPanel>
+					</DataTemplate>
+				</DropDown.ItemTemplate>
+			</DropDown>
+
+			<Button HorizontalAlignment="Stretch" Height="50">
+				<TextBlock Text="Leaderboard" Classes="h3" />
+			</Button>
+			<Separator Height="1" Background="White" />
+			<Button HorizontalAlignment="Stretch" Height="50"/>
+			<Separator Height="1" Background="White" />
+			<Button HorizontalAlignment="Stretch" Height="50"/>
+
+		</StackPanel>
+		<Panel Background="#3d01b3" 
+			   VerticalAlignment="Bottom" Height="60"
+				HorizontalAlignment="Stretch"
+				IsEnabled="True">
+			<TextBlock Classes="h3" FontSize="16" 
+						Text="{Binding User.UserName}" 
+						HorizontalAlignment="Left" 
+						Margin="10,0,0,0"/>
+			<Button HorizontalAlignment="Right" Margin="0,0,5,0"
+					FontSize="24">
+				⚙
+			</Button>
+		</Panel>
+	</Grid>
+</UserControl>
