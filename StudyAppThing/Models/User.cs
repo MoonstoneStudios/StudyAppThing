@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,7 +36,33 @@ namespace StudyAppThing.Models
         /// <summary>
         /// The user's courses.
         /// </summary>
+        public ObservableCollection<Course> Courses { get; } = new ObservableCollection<Course>();
+
+        /// <summary>
+        /// The user's current course.
+        /// </summary>
         [ObservableProperty]
-        private List<Course> courses = new List<Course>();
+        // change everything that uses CurrentCourseIndex
+        [NotifyPropertyChangedFor(nameof(CurrentCourseIndex))]
+        private Course currentCourse;
+
+        /// <summary>
+        /// The index of the current course in <see cref="Courses"/>.
+        /// </summary>
+        public int CurrentCourseIndex
+        {
+            get
+            {
+                return Courses.IndexOf(CurrentCourse);
+            }
+        }
+
+        public User()
+        {
+            Courses.CollectionChanged += (object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => 
+            {
+                OnPropertyChanged(nameof(Courses));
+            };
+        }
     }
 }

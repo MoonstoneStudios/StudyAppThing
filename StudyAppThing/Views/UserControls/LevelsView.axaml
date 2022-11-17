@@ -2,28 +2,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vms="using:StudyAppThing.ViewModels"
+			 xmlns:controls="using:StudyAppThing.Views.UserControls"
+			 xmlns:models="using:StudyAppThing.Models"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="StudyAppThing.Views.UserControls.LevelsView"	
 			 HorizontalAlignment="Stretch"
 			 VerticalAlignment="Stretch">
 
-	<ScrollViewer>
-		<StackPanel Spacing="10" >
-			<Rectangle Fill="Yellow" Width="100" Height="100" />
-			<Rectangle Fill="Yellow" Width="100" Height="100" />
-			<Rectangle Fill="Yellow" Width="100" Height="100" />
-			<Rectangle Fill="Yellow" Width="100" Height="100" />
-			<Rectangle Fill="Yellow" Width="100" Height="100" />
-			<Rectangle Fill="Yellow" Width="100" Height="100" />
-			<Rectangle Fill="Yellow" Width="100" Height="100" />
-			<Rectangle Fill="Yellow" Width="100" Height="100" />
-			<Rectangle Fill="Yellow" Width="100" Height="100" />
-			<Rectangle Fill="Yellow" Width="100" Height="100" />
-			<Rectangle Fill="Yellow" Width="100" Height="100" />
-			<Rectangle Fill="Yellow" Width="100" Height="100" />
-			<Rectangle Fill="Yellow" Width="100" Height="100" />
-			<Rectangle Fill="Yellow" Width="100" Height="100" />
-		</StackPanel>
+	<UserControl.DataContext>
+		<vms:LevelsViewModel />
+	</UserControl.DataContext>
+
+	<ScrollViewer HorizontalAlignment="Stretch"
+				  VerticalAlignment="Stretch">		
+		<ItemsControl Items="{Binding LessonsAndSeperators}">
+			<ItemsControl.DataTemplates>
+				<DataTemplate DataType="models:Lesson">
+					<Rectangle Fill="Yellow" Height="500" Width="500"
+							   Margin="10"/>
+				</DataTemplate>
+				<DataTemplate DataType="vms:UnitSeperator">
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+						<Rectangle Fill="Gray" Height="100" Width="400" />
+						<TextBlock Text="{Binding Unit.FullName}" VerticalAlignment="Center" />
+						<Rectangle Fill="Gray" Height="100" Width="400" />
+					</StackPanel>
+				</DataTemplate>
+			</ItemsControl.DataTemplates>
+		</ItemsControl>
 	</ScrollViewer>
 
 </UserControl>

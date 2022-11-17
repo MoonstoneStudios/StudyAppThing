@@ -27,11 +27,12 @@
 	<Grid>
 		<StackPanel Orientation="Vertical">
 			<DropDown HorizontalAlignment="Stretch" Height="125"
-					  Items="{Binding User.Courses}">
+					  Items="{Binding User.Courses}"
+					  SelectedIndex="{Binding User.CurrentCourseIndex}"
+					  SelectionChanged="SelectionChanged">
 				<DropDown.ItemTemplate>
 					<DataTemplate DataType="models:Course">
 						<StackPanel Orientation="Horizontal">
-							<!--TODO: load images-->
 							<Image Source="{Binding ImageBitmap}" Width="50"
 								   Height="50"/>
 							<TextBlock Text="{Binding Name}" />

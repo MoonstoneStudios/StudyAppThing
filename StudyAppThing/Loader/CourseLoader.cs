@@ -23,6 +23,7 @@ namespace StudyAppThing.Loader
     /// </summary>
     public class CourseLoader
     {
+        // TODO: error handling
 
         /// <summary>
         /// Load the course data from a zip file.
@@ -112,6 +113,7 @@ namespace StudyAppThing.Loader
 
             // loop through units.
             List<Unit> units = new List<Unit>();
+
             foreach (UnitFile uFile in courseFile.Units)
             {
                 // make the unit.
@@ -129,6 +131,15 @@ namespace StudyAppThing.Loader
                     Lesson lesson = new Lesson();
                     lesson.Name = lFile.Name;
                     lesson.Number = lFile.Number;
+                    lesson.Image = lFile.Image;
+
+                    // load icon
+                    using (FileStream stream = File.OpenRead(FilePath.Combine(zipDir, "Assets", lesson.Image)))
+                    {
+                        // 500 as placeholder for now
+                        lesson.ImageBitmap = Bitmap.DecodeToWidth(stream, 500);
+                    }
+
                     lessons.Add(lesson);
                 }
 
@@ -175,7 +186,6 @@ namespace StudyAppThing.Loader
                     case nameof(QuestionType.MulChoice):
                         {
                             MultipleChoiceQuestion q = JsonConvert.DeserializeObject<MultipleChoiceQuestion>(question.ToString());
-
 
                             using (FileStream stream = File.OpenRead(FilePath.Combine(zipDir, "Assets", q.Image)))
                             {

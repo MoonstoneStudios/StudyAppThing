@@ -4,7 +4,7 @@ using StudyAppThing.Models;
 
 namespace StudyAppThing.ViewModels
 {
-    public class MainWindowViewModel : HasSideBarViewModelBase
+    public class MainWindowViewModel : ViewModelBase
     {
         public MainWindowViewModel()
         {

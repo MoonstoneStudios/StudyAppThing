@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using StudyAppThing.Misc;
 
 namespace StudyAppThing.Views.UserControls
 {
@@ -8,5 +9,19 @@ namespace StudyAppThing.Views.UserControls
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// When the sidebar's selection has been changed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SelectionChanged(object? sender, SelectionChangedEventArgs e)
+        {
+            // set the course to the new value.
+            var dropDown = (DropDown)sender;
+            var index = dropDown.SelectedIndex;
+            CurrentUser.User.CurrentCourse = CurrentUser.User.Courses[index];
+        }
+
     }
 }

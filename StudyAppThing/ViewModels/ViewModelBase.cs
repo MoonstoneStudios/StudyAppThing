@@ -19,6 +19,5 @@ namespace StudyAppThing.ViewModels
         /// The user.
         /// </summary>
         public User User => CurrentUser.User;
-
     }
 }

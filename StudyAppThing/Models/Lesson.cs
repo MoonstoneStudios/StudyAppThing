@@ -1,4 +1,6 @@
-﻿using StudyAppThing.Models.Questions;
+﻿using Avalonia.Media.Imaging;
+using Newtonsoft.Json;
+using StudyAppThing.Models.Questions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,5 +46,16 @@ namespace StudyAppThing.Models
         /// The questions in the lesson.
         /// </summary>
         public List<Question> Questions { get; set; } = new List<Question>();
+
+        /// <summary>
+        /// The link to the image.
+        /// </summary>
+        public string Image { get; set; }
+
+        /// <summary>
+        /// The <see cref="Bitmap"/> version of <see cref="Image"/>.
+        /// </summary>
+        [JsonIgnore]
+        public Bitmap ImageBitmap { get; set; }
     }
 }
