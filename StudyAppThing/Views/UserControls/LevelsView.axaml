@@ -15,7 +15,8 @@
 	</UserControl.DataContext>
 
 	<ScrollViewer HorizontalAlignment="Stretch"
-				  VerticalAlignment="Stretch">		
+				  VerticalAlignment="Stretch"
+				  ScrollChanged="ScrollChanged">
 		<ItemsControl Items="{Binding LessonsAndSeperators}">
 			<ItemsControl.DataTemplates>
 				<DataTemplate DataType="models:Lesson">
@@ -24,9 +25,9 @@
 				</DataTemplate>
 				<DataTemplate DataType="vms:UnitSeperator">
 					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-						<Rectangle Fill="Gray" Height="100" Width="400" />
+						<Rectangle Fill="Gray" Height="4" Width="400" />
 						<TextBlock Text="{Binding Unit.FullName}" VerticalAlignment="Center" />
-						<Rectangle Fill="Gray" Height="100" Width="400" />
+						<Rectangle Fill="Gray" Height="4" Width="400" />
 					</StackPanel>
 				</DataTemplate>
 			</ItemsControl.DataTemplates>

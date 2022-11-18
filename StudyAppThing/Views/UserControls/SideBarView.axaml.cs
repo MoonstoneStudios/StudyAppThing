@@ -21,6 +21,8 @@ namespace StudyAppThing.Views.UserControls
             var dropDown = (DropDown)sender;
             var index = dropDown.SelectedIndex;
             CurrentUser.User.CurrentCourse = CurrentUser.User.Courses[index];
+            // set the new unit.
+            CurrentUser.User.CurrentUnit = CurrentUser.User.CurrentCourse.Units[0];
         }
 
     }

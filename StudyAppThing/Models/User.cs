@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StudyAppThing.Views.UserControls;
 
 namespace StudyAppThing.Models
 {
@@ -44,6 +45,8 @@ namespace StudyAppThing.Models
         [ObservableProperty]
         // change everything that uses CurrentCourseIndex
         [NotifyPropertyChangedFor(nameof(CurrentCourseIndex))]
+        // change everything that uses CurrentUnit
+        [NotifyPropertyChangedFor(nameof(CurrentUnit))]
         private Course currentCourse;
 
         /// <summary>
@@ -56,6 +59,12 @@ namespace StudyAppThing.Models
                 return Courses.IndexOf(CurrentCourse);
             }
         }
+
+        /// <summary>
+        /// The current unit that is being viewed. This is changed by the <see cref="LevelsView"/> code-behind.
+        /// </summary>
+        [ObservableProperty]
+        private Unit currentUnit;
 
         public User()
         {
