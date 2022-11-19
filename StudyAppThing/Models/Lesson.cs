@@ -35,6 +35,11 @@ namespace StudyAppThing.Models
         public int FullCircles { get; set; }
 
         /// <summary>
+        /// The full circle text.
+        /// </summary>
+        public string FullCirclesText => "x" + FullCircles;
+
+        /// <summary>
         /// The lesson number.
         /// </summary>
         /// <remarks>

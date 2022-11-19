@@ -42,6 +42,10 @@
 			</DropDown>
 
 			<Button HorizontalAlignment="Stretch" Height="50">
+				<TextBlock Text="Home" Classes="h3" />
+			</Button>
+			<Separator Height="1" Background="White" />
+			<Button HorizontalAlignment="Stretch" Height="50">
 				<TextBlock Text="Leaderboard" Classes="h3" />
 			</Button>
 			<Separator Height="1" Background="White" />

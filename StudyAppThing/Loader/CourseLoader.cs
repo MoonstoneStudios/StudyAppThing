@@ -132,6 +132,8 @@ namespace StudyAppThing.Loader
                     lesson.Name = lFile.Name;
                     lesson.Number = lFile.Number;
                     lesson.Image = lFile.Image;
+                    lesson.Progress = lFile.Progress;
+                    lesson.FullCircles = lFile.FullCircles;
 
                     // load icon
                     using (FileStream stream = File.OpenRead(FilePath.Combine(zipDir, "Assets", lesson.Image)))

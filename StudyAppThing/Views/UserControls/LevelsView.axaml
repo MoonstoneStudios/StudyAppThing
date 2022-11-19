@@ -20,8 +20,10 @@
 		<ItemsControl Items="{Binding LessonsAndSeperators}">
 			<ItemsControl.DataTemplates>
 				<DataTemplate DataType="models:Lesson">
-					<Rectangle Fill="Yellow" Height="500" Width="500"
-							   Margin="10"/>
+					<!--<Rectangle Fill="Yellow" Height="500" Width="500"
+							   Margin="10"/>-->
+					<controls:LessonIconView DataContext="{Binding .}"
+											 PointerPressed="IconPressed"/>
 				</DataTemplate>
 				<DataTemplate DataType="vms:UnitSeperator">
 					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

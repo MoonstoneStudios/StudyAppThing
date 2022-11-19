@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
+using Avalonia.Controls.Primitives;
+using Avalonia.Input;
 using Avalonia.LogicalTree;
+using Avalonia.Media;
 using Avalonia.VisualTree;
 using StudyAppThing.Misc;
 
@@ -14,6 +18,11 @@ namespace StudyAppThing.Views.UserControls
         public LevelsView()
         {
             InitializeComponent();
+        }
+
+        private void IconPressed(object? sender, PointerPressedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout(sender as Control);
         }
 
         /// <summary>

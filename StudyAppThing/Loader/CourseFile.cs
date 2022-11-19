@@ -73,6 +73,16 @@ namespace StudyAppThing.Loader
         /// The image of the lesson.
         /// </summary>
         public string Image { get; set; }
+
+        /// <summary>
+        /// Progress of the lesson.
+        /// </summary>
+        public int Progress { get; set; }
+
+        /// <summary>
+        /// The amount of times the lesson has been completed fully.
+        /// </summary>
+        public int FullCircles { get; set; }
     }
 
 }

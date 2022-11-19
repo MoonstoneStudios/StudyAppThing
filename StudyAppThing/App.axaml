@@ -9,6 +9,7 @@
     <Application.Styles>
         <FluentTheme Mode="Light"/>
 		<StyleInclude Source="avares://StudyAppThing/Assets/Styles/AppStyles.axaml" />
+		<StyleInclude Source="avares://Aura.UI.FluentTheme/AuraUI.xaml"/>
     </Application.Styles>
 
 	<Application.Resources>
