@@ -22,6 +22,8 @@ namespace StudyAppThing.ViewModels
         public HeaderViewModel()
         {
             User.PropertyChanged += UserChanged;
+            // Header is created after the courses are loaded.
+            HeaderText = User.CurrentUnit.FullName;
         }
 
         private void UserChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)

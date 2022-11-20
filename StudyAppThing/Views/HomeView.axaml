@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:controls="using:StudyAppThing.Views.UserControls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="StudyAppThing.Views.HomeView">
+	<Grid>
+
+		<Grid.ColumnDefinitions>
+			<!--Side Bar-->
+			<ColumnDefinition Width="*" />
+			<!--Main Content-->
+			<ColumnDefinition Width="4*" />
+		</Grid.ColumnDefinitions>
+
+		<Grid.RowDefinitions>
+			<!--Header-->
+			<RowDefinition Height="auto" />
+			<!--Main Content-->
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<!--0, 0-->
+		<controls:SideBarView Grid.RowSpan="2" />
+		<controls:HeaderView Grid.Column="1" />
+		<controls:LevelsView Grid.Column="1" Grid.Row="1" />
+
+	</Grid>
+</UserControl>

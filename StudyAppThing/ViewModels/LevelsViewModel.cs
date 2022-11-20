@@ -30,6 +30,8 @@ namespace StudyAppThing.ViewModels
                     OnPropertyChanged(nameof(LessonsAndSeperators));
                 };
             User.PropertyChanged += UserChanged;
+            // Levels VM is created after the courses are loaded.
+            RegenerateList();
         }
 
         /// <summary>
@@ -40,17 +42,26 @@ namespace StudyAppThing.ViewModels
             // if current course is changed.
             if (e.PropertyName == nameof(User.CurrentCourse))
             {
-                LessonsAndSeperators.Clear();
-                foreach (var unit in User.CurrentCourse.Units.OrderBy(u => u.UnitNumber))
+                RegenerateList();
+            }
+        }
+
+        /// <summary>
+        /// Regenerate the list.
+        /// </summary>
+        private void RegenerateList()
+        {
+            LessonsAndSeperators.Clear();
+            foreach (var unit in User.CurrentCourse.Units.OrderBy(u => u.UnitNumber))
+            {
+                LessonsAndSeperators.Add(new UnitSeperator(unit));
+                foreach (var l in unit.Lessons.OrderBy(l => l.Number))
                 {
-                    LessonsAndSeperators.Add(new UnitSeperator(unit));
-                    foreach (var l in unit.Lessons.OrderBy(l => l.Number))
-                    {
-                        LessonsAndSeperators.Add(l);
-                    }
+                    LessonsAndSeperators.Add(l);
                 }
             }
         }
+
     }
 
     /// <summary>

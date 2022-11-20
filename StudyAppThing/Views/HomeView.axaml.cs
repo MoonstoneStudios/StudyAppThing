@@ -1,11 +1,10 @@
-using System;
 using Avalonia.Controls;
 
 namespace StudyAppThing.Views
 {
-    public partial class MainWindow : Window
+    public partial class HomeView : UserControl
     {
-        public MainWindow()
+        public HomeView()
         {
             InitializeComponent();
         }
