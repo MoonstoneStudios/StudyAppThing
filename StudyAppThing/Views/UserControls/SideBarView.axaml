@@ -41,11 +41,13 @@
 				</DropDown.ItemTemplate>
 			</DropDown>
 
-			<Button HorizontalAlignment="Stretch" Height="50">
+			<Button HorizontalAlignment="Stretch" Height="50"
+					Command="{Binding SwitchToHomeCommand}">
 				<TextBlock Text="Home" Classes="h3" />
 			</Button>
 			<Separator Height="1" Background="White" />
-			<Button HorizontalAlignment="Stretch" Height="50">
+			<Button HorizontalAlignment="Stretch" Height="50"
+					Command="{Binding SwitchToLoaderboardCommand}">
 				<TextBlock Text="Leaderboard" Classes="h3" />
 			</Button>
 			<Separator Height="1" Background="White" />
