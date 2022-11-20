@@ -23,7 +23,30 @@ namespace StudyAppThing.Loader
     /// </summary>
     public class CourseLoader
     {
+        public const string APP_SAVE_FOLDER = "StudyAppThing";
+
         // TODO: error handling
+
+        /// <summary>
+        /// Load all the courses
+        /// </summary>
+        /// <returns>A <see cref="List{T}"/> of <see cref="Course"/>s.</returns>
+        public List<Course> LoadAllCourses()
+        {
+            var courses = new List<Course>();
+            // get the special directory.
+            var appSaves = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            appSaves = FilePath.Combine(appSaves, APP_SAVE_FOLDER);
+
+            if (!Directory.Exists(appSaves)) Directory.CreateDirectory(appSaves);
+
+            foreach (var save in Directory.GetFiles(appSaves, "*.zip"))
+            {
+                courses.Add(LoadCourse(save));
+            }
+
+            return courses;
+        }
 
         /// <summary>
         /// Load the course data from a zip file.
@@ -187,7 +210,8 @@ namespace StudyAppThing.Loader
                     // load the multiple choice questions
                     case nameof(QuestionType.MulChoice):
                         {
-                            MultipleChoiceQuestion q = JsonConvert.DeserializeObject<MultipleChoiceQuestion>(question.ToString());
+                            MultipleChoiceQuestion q = 
+                                JsonConvert.DeserializeObject<MultipleChoiceQuestion>(question.ToString());
 
                             using (FileStream stream = File.OpenRead(FilePath.Combine(zipDir, "Assets", q.Image)))
                             {

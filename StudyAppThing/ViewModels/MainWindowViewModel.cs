@@ -37,7 +37,13 @@ namespace StudyAppThing.ViewModels
 
             // user is offline here.
             var loader = new CourseLoader();
-            // todo: load all courses
+            var courses = loader.LoadAllCourses();
+
+            foreach (var c in courses)
+            {
+                User.Courses.Add(c);
+            }
+            User.CurrentCourse = User.Courses[0];
         }
 
         /// <summary>
