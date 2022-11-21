@@ -5,15 +5,7 @@
 			 xmlns:models="using:StudyAppThing.Models"
              mc:Ignorable="d" d:DesignWidth="230" d:DesignHeight="230"
              x:Class="StudyAppThing.Views.UserControls.LessonIconView">
-	
-	<FlyoutBase.AttachedFlyout>
-		<Flyout Placement="Bottom">
-			<Grid>
-				<Button Content="{Binding Name, StringFormat='Practice {0}!'}" />
-			</Grid>
-		</Flyout>
-	</FlyoutBase.AttachedFlyout>
-	
+
 	<!--This control will have a Lesson passed in as a DataContext.-->
 	<StackPanel Orientation="Vertical" VerticalAlignment="Center"
 				HorizontalAlignment="Center">

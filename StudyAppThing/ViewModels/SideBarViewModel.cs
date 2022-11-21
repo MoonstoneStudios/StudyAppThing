@@ -25,6 +25,5 @@ namespace StudyAppThing.ViewModels
         {
             ViewSwitcher.SwitchView(new HomeViewModel());
         }
-
     }
 }

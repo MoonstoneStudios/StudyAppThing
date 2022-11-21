@@ -46,5 +46,30 @@ namespace StudyAppThing.Models.Questions
         /// </summary>
         [JsonIgnore]
         public Bitmap ImageBitmap { get; set; }
+
+        /// <summary>
+        /// If there is an image.
+        /// </summary>
+        public bool HasImage => !string.IsNullOrEmpty(Image);
+
+        /// <summary>
+        /// Shuffle the choices.
+        /// </summary>
+        public void Shuffle()
+        {
+            // credit: https://stackoverflow.com/a/108836
+            var r = new Random();
+            string answer = Choices[AnswerIndex];
+            Choices = Choices.OrderBy(x => r.Next()).ToArray();
+            // end credit
+            for (int i = 0; i < Choices.Length; i++)
+            {
+                if (Choices[i] == answer)
+                {
+                    AnswerIndex = i;
+                    break;
+                }
+            }
+        }
     }
 }

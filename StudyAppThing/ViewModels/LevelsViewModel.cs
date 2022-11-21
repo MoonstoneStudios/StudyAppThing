@@ -62,6 +62,15 @@ namespace StudyAppThing.ViewModels
             }
         }
 
+        /// <summary>
+        /// The command to start a lesson.
+        /// </summary>
+        /// <param name="lesson">The lesson's number as a string.</param>
+        [RelayCommand]
+        public void StartLesson(string lesson)
+        {
+            ViewSwitcher.SwitchView(new QuestionsViewModel(int.Parse(lesson)));
+        }
     }
 
     /// <summary>

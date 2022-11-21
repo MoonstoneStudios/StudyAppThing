@@ -2,17 +2,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:misc="using:StudyAppThing.Misc"
 			 xmlns:vms="using:StudyAppThing.ViewModels"
 			 xmlns:controls="using:StudyAppThing.Views.UserControls"
 			 xmlns:models="using:StudyAppThing.Models"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="StudyAppThing.Views.UserControls.LevelsView"	
 			 HorizontalAlignment="Stretch"
-			 VerticalAlignment="Stretch">
+			 VerticalAlignment="Stretch"
+			 Name="Control">
 
 	<UserControl.DataContext>
 		<vms:LevelsViewModel />
 	</UserControl.DataContext>
+
+	<UserControl.Resources>
+		<misc:IntValueConverter x:Key="IntConverter" />
+	</UserControl.Resources>
 
 	<ScrollViewer HorizontalAlignment="Stretch"
 				  VerticalAlignment="Stretch"
@@ -20,10 +26,20 @@
 		<ItemsControl Items="{Binding LessonsAndSeperators}">
 			<ItemsControl.DataTemplates>
 				<DataTemplate DataType="models:Lesson">
-					<!--<Rectangle Fill="Yellow" Height="500" Width="500"
-							   Margin="10"/>-->
+					<!--Lesson Icon-->
 					<controls:LessonIconView DataContext="{Binding .}"
-											 PointerPressed="IconPressed"/>
+											 PointerPressed="IconPressed">
+						<!--The flyout-->
+						<FlyoutBase.AttachedFlyout>
+							<Flyout Placement="Bottom">
+								<Grid>
+									<Button Content="{Binding Name, StringFormat='Practice {0}!'}"
+											Command="{Binding #Control.DataContext.StartLessonCommand}"
+											CommandParameter="{Binding Number, Converter={StaticResource IntConverter}}"/>
+								</Grid>
+							</Flyout>
+						</FlyoutBase.AttachedFlyout>
+					</controls:LessonIconView>
 				</DataTemplate>
 				<DataTemplate DataType="vms:UnitSeperator">
 					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

@@ -41,19 +41,23 @@
 				</DropDown.ItemTemplate>
 			</DropDown>
 
-			<Button HorizontalAlignment="Stretch" Height="50"
+			<Button HorizontalAlignment="Stretch" Height="60"
 					Command="{Binding SwitchToHomeCommand}">
 				<TextBlock Text="Home" Classes="h3" />
 			</Button>
 			<Separator Height="1" Background="White" />
-			<Button HorizontalAlignment="Stretch" Height="50"
+			<Button HorizontalAlignment="Stretch" Height="60"
 					Command="{Binding SwitchToLoaderboardCommand}">
 				<TextBlock Text="Leaderboard" Classes="h3" />
 			</Button>
 			<Separator Height="1" Background="White" />
-			<Button HorizontalAlignment="Stretch" Height="50"/>
+			<Button HorizontalAlignment="Stretch" Height="60">
+				<TextBlock Text="Flash Cards" Classes="h3" />
+			</Button>
 			<Separator Height="1" Background="White" />
-			<Button HorizontalAlignment="Stretch" Height="50"/>
+			<Button HorizontalAlignment="Stretch" Height="60">
+				<TextBlock Text="Resources" Classes="h3" />
+			</Button>
 
 		</StackPanel>
 		<Panel Background="#3d01b3" 
