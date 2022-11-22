@@ -13,15 +13,20 @@
 			<ColumnDefinition Width="4*" />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
+			<RowDefinition Height="auto" />
 			<RowDefinition Height="*" />
 			<RowDefinition Height="auto" />
 		</Grid.RowDefinitions>
-		<controls:SideBarView Grid.RowSpan="2" />
 
-		<ContentControl Grid.Column="1" Content="{Binding QuestionViewModel}" />
+		<controls:SideBarView Grid.RowSpan="3" />
+
+		<ProgressBar Grid.Column="1" Maximum="10" ShowProgressText="True"
+					 Value="{Binding Progress}"/>
+		
+		<ContentControl Grid.Column="1" Grid.Row="1" Content="{Binding QuestionViewModel}" />
 
 		<Button VerticalAlignment="Bottom" HorizontalAlignment="Stretch"
-				Background="LightGreen" Grid.Column="1" Grid.Row="1"
+				Background="LightGreen" Grid.Column="1" Grid.Row="2"
 				Height="100" VerticalContentAlignment="Center" 
 				HorizontalContentAlignment="Center" Margin="20"
 				HotKey="Enter" Command="{Binding SumbitCommand}"

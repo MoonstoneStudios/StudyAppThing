@@ -10,13 +10,9 @@ namespace StudyAppThing.ViewModels.Questions
     /// <summary>
     /// A question view.
     /// </summary>
-    public interface IQuestionView<T> where T : Question
+    public interface IQuestionView
     {
-
-        /// <summary>
-        /// The question this view will use.
-        /// </summary>
-        public T Question { get; set; }
+        public bool CanSubmit { get; }
 
         /// <summary>
         /// Evaluate the question.

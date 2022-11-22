@@ -9,12 +9,51 @@ using System.Threading.Tasks;
 
 namespace StudyAppThing.ViewModels.Questions
 {
-    public partial class MulChoiceQuestionViewModel : QuestionViewModelBase
+    public partial class MulChoiceQuestionViewModel : QuestionViewModelBase, IQuestionView
     {
         new public MultipleChoiceQuestion Question { get; set; }
 
+        public bool CanSubmit => SelectedButton != -1;
+
         [ObservableProperty]
-        private int selectedButton;
+        [NotifyPropertyChangedFor(nameof(CanSubmit))]
+        [NotifyPropertyChangedFor(nameof(IsZeroSelected))]
+        [NotifyPropertyChangedFor(nameof(IsOneSelected))]
+        [NotifyPropertyChangedFor(nameof(IsTwoSelected))]
+        [NotifyPropertyChangedFor(nameof(IsThreeSelected))]
+        private int selectedButton = -1;
+
+        public bool IsZeroSelected
+        {
+            get
+            {
+                return SelectedButton == 0;
+            }
+        }
+
+        public bool IsOneSelected
+        {
+            get
+            {
+                return SelectedButton == 1;
+            }
+        }
+
+        public bool IsTwoSelected
+        {
+            get
+            {
+                return SelectedButton == 2;
+            }
+        }
+
+        public bool IsThreeSelected
+        {
+            get
+            {
+                return SelectedButton == 3;
+            }
+        }
 
         public override bool Evaluate()
         {
@@ -26,7 +65,9 @@ namespace StudyAppThing.ViewModels.Questions
         public void Select(string num)
         {
             int i = int.Parse(num);
-            SelectedButton = i;
+            if (i == SelectedButton)
+                SelectedButton = -1;
+            else SelectedButton = i;
         }
 
     }

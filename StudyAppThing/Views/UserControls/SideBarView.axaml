@@ -9,7 +9,8 @@
 			 VerticalAlignment="Stretch"
 			 MinWidth="250"
 			 MaxWidth="400"
-			 Background="{StaticResource PurpleGradient}">
+			 Background="{StaticResource PurpleGradient}"
+			 ZIndex="10">
 
 	<UserControl.Styles>
 		<Styles>

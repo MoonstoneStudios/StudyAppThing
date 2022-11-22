@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using StudyAppThing.Misc;
 using StudyAppThing.Models;
@@ -34,6 +35,12 @@ namespace StudyAppThing.ViewModels
         [ObservableProperty]
         private Question currentQuestion;
 
+        /// <summary>
+        /// The amount of questions answered.
+        /// </summary>
+        [ObservableProperty]
+        private int progress;
+
         public QuestionsViewModel(int lesson)
         {
             // lessons are indexed starting at one, subtract to make it start at 0.
@@ -59,6 +66,7 @@ namespace StudyAppThing.ViewModels
                         {
                             Question = q
                         };
+                        QuestionViewModel.PropertyChanged += QuestionVMChanged;
                         break;
                     default:
                         break;
@@ -66,7 +74,15 @@ namespace StudyAppThing.ViewModels
             }
         }
 
-        [RelayCommand]
+        private void QuestionVMChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(IQuestionView.CanSubmit))
+            {
+                SumbitCommand.NotifyCanExecuteChanged();
+            }
+        }
+
+        [RelayCommand(CanExecute = nameof(CanSubmit))]
         public void Sumbit()
         {
             bool correct = QuestionViewModel.Evaluate();
@@ -74,11 +90,20 @@ namespace StudyAppThing.ViewModels
             {
                 var random = new Random();
                 var randQ = random.Next(Lesson.Questions.Count);
+                QuestionViewModel.PropertyChanged -= QuestionVMChanged;
                 // prevent from selecting the same quetsion.
                 while (Lesson.Questions[randQ] == CurrentQuestion)
                     randQ = random.Next(Lesson.Questions.Count);
                 CurrentQuestion = Lesson.Questions[randQ];
             }
+            Progress++;
+        }
+
+        private bool CanSubmit()
+        {
+            // all questions should be IQuestionView
+            var view = QuestionViewModel as IQuestionView;
+            return view.CanSubmit;
         }
 
     }
