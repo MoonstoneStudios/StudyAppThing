@@ -210,8 +210,32 @@ namespace StudyAppThing.Loader
                     // load the multiple choice questions
                     case nameof(QuestionType.MulChoice):
                         {
+                            List<string> choices = new List<string>();
+                            List<string> because = new List<string>();
+
+                            foreach (var item in (JArray)question["Choices"])
+                            {
+                                // if there is a because.
+                                if (item is JArray array)
+                                {
+                                    // the answer.
+                                    choices.Add((string)array[0]);
+                                    // the because
+                                    because.Add((string)array[1]);
+                                }
+                                else
+                                {
+                                    // just an answer.
+                                    choices.Add((string)item);
+                                }
+                            }
+
                             MultipleChoiceQuestion q = 
                                 JsonConvert.DeserializeObject<MultipleChoiceQuestion>(question.ToString());
+
+                            q.Choices = choices.ToArray();
+                            q.ChoicesUnshuffled = choices.ToArray();
+                            q.Because = because.ToArray();
 
                             if (q.HasImage)
                             {

@@ -41,6 +41,31 @@ namespace StudyAppThing.ViewModels
         [ObservableProperty]
         private int progress;
 
+        /// <summary>
+        /// If the answer box should be shown.
+        /// </summary>
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SumbitCommand))]
+        private bool showAnswer;
+
+        /// <summary>
+        /// If the answer is correct.
+        /// </summary>
+        [ObservableProperty]
+        private bool correctAnswer;
+
+        /// <summary>
+        /// The because to display.
+        /// </summary>
+        [ObservableProperty]
+        private string because;
+
+        /// <summary>
+        /// If the "Are you sure?" dialog should be shown.
+        /// </summary>
+        [ObservableProperty]
+        private bool showDialog;
+
         public QuestionsViewModel(int lesson)
         {
             // lessons are indexed starting at one, subtract to make it start at 0.
@@ -85,25 +110,49 @@ namespace StudyAppThing.ViewModels
         [RelayCommand(CanExecute = nameof(CanSubmit))]
         public void Sumbit()
         {
-            bool correct = QuestionViewModel.Evaluate();
-            if (correct)
+            CorrectAnswer = QuestionViewModel.Evaluate();
+            if (CurrentQuestion.HasBecause)
             {
-                var random = new Random();
-                var randQ = random.Next(Lesson.Questions.Count);
-                QuestionViewModel.PropertyChanged -= QuestionVMChanged;
-                // prevent from selecting the same quetsion.
-                while (Lesson.Questions[randQ] == CurrentQuestion)
-                    randQ = random.Next(Lesson.Questions.Count);
-                CurrentQuestion = Lesson.Questions[randQ];
+                IQuestionView view = QuestionViewModel as IQuestionView;
+                Because = view.GetBecause();
             }
             Progress++;
+            ShowAnswer = true;
         }
 
         private bool CanSubmit()
         {
+            if (ShowAnswer) return false;
+
             // all questions should be IQuestionView
             var view = QuestionViewModel as IQuestionView;
             return view.CanSubmit;
+        }
+
+        [RelayCommand]
+        private void MoveOn()
+        {
+            var random = new Random();
+            var randQ = random.Next(Lesson.Questions.Count);
+            QuestionViewModel.PropertyChanged -= QuestionVMChanged;
+            // prevent from selecting the same quetsion.
+            while (Lesson.Questions[randQ] == CurrentQuestion)
+                randQ = random.Next(Lesson.Questions.Count);
+            CurrentQuestion = Lesson.Questions[randQ];
+            // reset values
+            ShowAnswer = false;
+            Because = "";
+        }
+
+        [RelayCommand]
+        private void QuitButton()
+        {
+            ShowDialog = true;
+        }
+
+        public void QuitLesson()
+        {
+            ViewSwitcher.SwitchView(new HomeViewModel());
         }
 
     }

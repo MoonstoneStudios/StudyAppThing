@@ -23,5 +23,10 @@ namespace StudyAppThing.ViewModels.Questions
         /// </returns>
         public bool Evaluate();
 
+        /// <summary>
+        /// Get the question's because.
+        /// </summary>
+        /// <returns>The because.</returns>
+        public string GetBecause();
     }
 }

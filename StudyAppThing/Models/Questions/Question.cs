@@ -23,5 +23,23 @@ namespace StudyAppThing.Models.Questions
         /// The header text for the question.
         /// </summary>
         public abstract string HeaderText { get; }
+
+        /// <summary>
+        /// If the question has a because.
+        /// </summary>
+        public abstract bool HasBecause { get; }
+
+        /// <summary>
+        /// Get the question's because based on the answer.
+        /// </summary>
+        /// <remarks>
+        /// This is handled in the implementation.
+        /// </remarks>
+        /// <param name="data">Data related to the question. Added by the View Model.</param>
+        /// <returns>A string the of because.</returns>
+        public virtual string GetBecause(object data)
+        {
+            return "";
+        }
     }
 }

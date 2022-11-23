@@ -57,7 +57,6 @@ namespace StudyAppThing.ViewModels.Questions
 
         public override bool Evaluate()
         {
-            Console.WriteLine(SelectedButton == Question.AnswerIndex);
             return SelectedButton == Question.AnswerIndex;
         }
 
@@ -65,10 +64,15 @@ namespace StudyAppThing.ViewModels.Questions
         public void Select(string num)
         {
             int i = int.Parse(num);
+            // if button already selected unselect it.
             if (i == SelectedButton)
                 SelectedButton = -1;
             else SelectedButton = i;
         }
 
+        public string GetBecause()
+        {
+            return Question.GetBecause(SelectedButton);
+        }
     }
 }
