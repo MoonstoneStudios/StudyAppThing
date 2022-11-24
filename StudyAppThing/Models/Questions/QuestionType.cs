@@ -15,6 +15,12 @@ namespace StudyAppThing.Models.Questions
         /// The user is presented with options and needs to select
         /// the correct answer.
         /// </summary>
-        MulChoice
+        MulChoice,
+
+        /// <summary>
+        /// The user is presented with a text box and needs to
+        /// type in the correct answer.
+        /// </summary>
+        FreeResponse
     }
 }

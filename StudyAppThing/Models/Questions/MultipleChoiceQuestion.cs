@@ -98,6 +98,11 @@ namespace StudyAppThing.Models.Questions
             }
         }
 
+        /// <summary>
+        /// Get the because.
+        /// </summary>
+        /// <param name="data">Data is the selected index here.</param>
+        /// <returns></returns>
         public override string GetBecause(object data)
         {
             if (Because.Length == 0) return "";

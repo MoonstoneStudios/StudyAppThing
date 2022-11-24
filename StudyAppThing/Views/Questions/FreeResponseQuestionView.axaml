@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vms="using:StudyAppThing.ViewModels.Questions"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="StudyAppThing.Views.Questions.FreeResponseQuestionView">
+	<Design.DataContext>
+		<vms:FreeResponseQuestionViewModel />
+	</Design.DataContext>
+
+	<Grid RowDefinitions="Auto,*">
+		<StackPanel VerticalAlignment="Stretch">
+			<TextBlock Text="{Binding Question.HeaderText}" Classes="h1"
+					   Foreground="Black" VerticalAlignment="Top"
+					   Margin="20"/>
+
+			<Separator Background="LightGray" Height="4"
+					   HorizontalAlignment="Stretch" Margin="20,5,20,10" />
+
+			<TextBlock Text="{Binding Question.Question}" Classes="h2"
+					   HorizontalAlignment="Center" VerticalAlignment="Center"
+					   Foreground="Black"/>
+
+			<Image Source="{Binding Question.ImageBitmap}"
+				   IsVisible="{Binding Question.HasImage}"
+				   VerticalAlignment="Center" HorizontalAlignment="Center"
+				   Stretch="Uniform" Height="400"/>
+			<Border Background="Transparent" IsVisible="{Binding !Question.HasImage}"
+					VerticalAlignment="Center" HorizontalAlignment="Center"
+					Height="400"/>
+
+		</StackPanel>
+
+		<TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+				 Grid.Row="1" Text="{Binding Response, Mode=TwoWay}" />
+	</Grid>
+</UserControl>

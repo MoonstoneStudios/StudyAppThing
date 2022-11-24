@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace StudyAppThing.ViewModels
 {
-    public partial class QuestionsViewModel : ViewModelBase, IWindowTitleChanger
+    public sealed partial class QuestionsViewModel : ViewModelBase, IWindowTitleChanger
     {
         public string WindowTitle => "Questions";
 
@@ -87,6 +87,12 @@ namespace StudyAppThing.ViewModels
         /// </summary>
         private List<Question> questionsWrong = new List<Question>();
 
+        /// <summary>
+        /// If the question wants to provide some specific notes.
+        /// </summary>
+        [ObservableProperty]
+        private string questionNotes;
+
         public QuestionsViewModel(int lesson)
         {
             // lessons are indexed starting at one, subtract to make it start at 0.
@@ -111,6 +117,14 @@ namespace StudyAppThing.ViewModels
                         QuestionViewModel = new MulChoiceQuestionViewModel()
                         {
                             Question = q
+                        };
+                        QuestionViewModel.PropertyChanged += QuestionVMChanged;
+                        break;
+                    case QuestionType.FreeResponse:
+                        var fq = CurrentQuestion as FreeResponseQuestion;
+                        QuestionViewModel = new FreeResponseQuestionViewModel()
+                        {
+                            Question = fq
                         };
                         QuestionViewModel.PropertyChanged += QuestionVMChanged;
                         break;
@@ -148,6 +162,12 @@ namespace StudyAppThing.ViewModels
                 IQuestionView view = QuestionViewModel as IQuestionView;
                 Because = view.GetBecause();
             }
+
+            if (QuestionViewModel is IQuestionViewModelWithNotes notes)
+            {
+                QuestionNotes = notes.Notes;
+            }
+
             ShowAnswer = true;
         }
 
@@ -186,6 +206,7 @@ namespace StudyAppThing.ViewModels
                 // reset values
                 ShowAnswer = false;
                 Because = "";
+                QuestionNotes = "";
                 // if the question was perviously incorrect,
                 // show the "Incorrect" text.
                 PreviouslyIncorrect = CurrentQuestion.PreviouslyIncorrect;

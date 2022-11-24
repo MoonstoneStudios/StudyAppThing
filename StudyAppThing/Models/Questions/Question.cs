@@ -28,6 +28,7 @@ namespace StudyAppThing.Models.Questions
         /// <summary>
         /// If the question has a because.
         /// </summary>
+        //TODO: maybe scrap.
         public abstract bool HasBecause { get; }
 
         /// <summary>
