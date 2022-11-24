@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using YamlDotNet.RepresentationModel;
 using YamlDotNet.Serialization;
 using StudyAppThing.Loader;
+using Newtonsoft.Json;
 
 namespace StudyAppThing.Models.Questions
 {
@@ -28,6 +29,12 @@ namespace StudyAppThing.Models.Questions
         /// If the question has a because.
         /// </summary>
         public abstract bool HasBecause { get; }
+
+        /// <summary>
+        /// If the question was previously incorrect.
+        /// </summary>
+        [JsonIgnore]
+        public bool PreviouslyIncorrect { get; set; }
 
         /// <summary>
         /// Get the question's because based on the answer.

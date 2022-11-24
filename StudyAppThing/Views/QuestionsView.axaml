@@ -10,65 +10,68 @@
 		<ContentDialog Content="Are you sure you want to quit the lesson?" ZIndex="101"
 					   OkButtonContent="Yes" IsVisible="{Binding ShowDialog}"
 					   CancelButtonClick="CancelClicked" OkButtonClick="OkClicked"/>
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<!--Side Bar-->
-					<!--<ColumnDefinition Width="*" />-->
-					<!--Main Content-->
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="auto" />
-					<RowDefinition Height="*" />
-					<RowDefinition Height="auto" />
-				</Grid.RowDefinitions>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<!--Side Bar-->
+				<!--<ColumnDefinition Width="*" />-->
+				<!--Main Content-->
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="auto" />
+			</Grid.RowDefinitions>
 
-				<!--<controls:SideBarView Grid.RowSpan="3" />-->
+			<!--<controls:SideBarView Grid.RowSpan="3" />-->
+
+			<StackPanel>
+
+				<Button Content="X" Margin="10,0,10,0" Width="50" Height="50"
+						Background="Tomato" HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center" FontSize="24"
+						Command="{Binding QuitButtonCommand}"/>
+				<ProgressBar Grid.Column="0" Maximum="10"
+								Value="{Binding Progress}"
+								Height="20" Margin="10"/>
+				<TextBlock Text="Previously Incorrect Question" 
+						   Foreground="Goldenrod"
+						   Classes="h3" Margin="10,0,10,0"
+						   IsVisible="{Binding PreviouslyIncorrect}"/>
+			</StackPanel>
 
 
-				<StackPanel>
+			<ContentControl Grid.Column="0" Grid.Row="1" Content="{Binding QuestionViewModel}" />
 
-					<Button Content="X" Margin="10,0,10,0" Width="50" Height="50"
-							Background="Tomato" HorizontalContentAlignment="Center"
-							VerticalContentAlignment="Center" FontSize="24"
-							Command="{Binding QuitButtonCommand}"/>
-					<ProgressBar Grid.Column="0" Maximum="10"
-								 Value="{Binding Progress}"
-								 Height="20" Margin="10"/>
-				</StackPanel>
+			<StackPanel Grid.Column="0" Grid.Row="2">
 
+				<Button VerticalAlignment="Bottom" HorizontalAlignment="Stretch"
+						Background="LightGreen" Grid.Column="0" Grid.Row="2"
+						Height="100" VerticalContentAlignment="Center"
+						HorizontalContentAlignment="Center" Margin="20"
+						HotKey="Enter" Command="{Binding SumbitCommand}"
+						IsEnabled="True">
+					<TextBlock Classes="h3" Foreground="Black" >
+						Submit!
+					</TextBlock>
+				</Button>
 
-				<ContentControl Grid.Column="0" Grid.Row="1" Content="{Binding QuestionViewModel}" />
+				<Border Height="200" HorizontalAlignment="Stretch"
+						IsVisible="{Binding ShowAnswer}"
+						Classes.correctAnswer="{Binding CorrectAnswer}"
+						Classes.incorrectAnswer="{Binding !CorrectAnswer}">
+					<StackPanel>
+						<TextBlock Text="Correct!" IsVisible="{Binding CorrectAnswer}" />
+						<TextBlock Text="Incorrect!" IsVisible="{Binding !CorrectAnswer}" />
+						<Button Content="Continue" Command="{Binding MoveOnCommand}"/>
+						<TextBlock Text="{Binding Because}"
+									IsVisible="{Binding Because,
+								Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+					</StackPanel>
+				</Border>
+			</StackPanel>
 
-				<StackPanel Grid.Column="0" Grid.Row="2">
-
-					<Button VerticalAlignment="Bottom" HorizontalAlignment="Stretch"
-							Background="LightGreen" Grid.Column="0" Grid.Row="2"
-							Height="100" VerticalContentAlignment="Center"
-							HorizontalContentAlignment="Center" Margin="20"
-							HotKey="Enter" Command="{Binding SumbitCommand}"
-							IsEnabled="True">
-						<TextBlock Classes="h3" Foreground="Black" >
-							Submit!
-						</TextBlock>
-					</Button>
-
-					<Border Height="200" HorizontalAlignment="Stretch"
-							IsVisible="{Binding ShowAnswer}"
-							Classes.correctAnswer="{Binding CorrectAnswer}"
-							Classes.incorrectAnswer="{Binding !CorrectAnswer}">
-						<StackPanel>
-							<TextBlock Text="Correct!" IsVisible="{Binding CorrectAnswer}" />
-							<TextBlock Text="Incorrect!" IsVisible="{Binding !CorrectAnswer}" />
-							<Button Content="Continue" Command="{Binding MoveOnCommand}"/>
-							<TextBlock Text="{Binding Because}"
-									   IsVisible="{Binding Because,
-								   Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
-						</StackPanel>
-					</Border>
-				</StackPanel>
-
-			</Grid>
+		</Grid>
 	</Grid>
 	
 </UserControl>

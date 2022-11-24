@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vms="using:StudyAppThing.ViewModels"
+			 xmlns:controls="using:StudyAppThing.Views.UserControls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="StudyAppThing.Views.LessonCompleteView">
+
+	<!--<UserControl.DataContext>
+		<vms:LessonCompleteViewModel />
+	</UserControl.DataContext>-->
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<!--Side Bar-->
+			<ColumnDefinition Width="*" />
+			<!--Main Content-->
+			<ColumnDefinition Width="4*" />
+		</Grid.ColumnDefinitions>
+
+		<Grid.RowDefinitions>
+			<!--Header-->
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<!--0, 0-->
+		<controls:SideBarView />
+
+		<StackPanel Grid.Column="1">
+			<TextBlock Text="Lesson Complete!" Classes="h2" Foreground="Black" />
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="Accuracy:" />
+				<ProgressBar Value="{Binding Stats.Accuracy}" Minimum="0" Maximum="100"
+							 ShowProgressText="True"/>
+			</StackPanel>
+
+			<Button Content="Home" Command="{Binding HomeCommand}" />
+		</StackPanel>
+		
+	</Grid>
+
+</UserControl>

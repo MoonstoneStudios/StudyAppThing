@@ -24,10 +24,32 @@ namespace StudyAppThing.Models
         /// </summary>
         public string Name { get; set; } = "";
 
+        private int progress;
+
         /// <summary>
         /// The progress in the lesson. This will be desomstrated by a circular progress bar.
         /// </summary>
-        public int Progress { get; set; }
+        public int Progress
+        {
+            get => progress;
+            set
+            {
+                // if the full circles should be incremented.
+                // think of this like experience and levels.
+                // Progress is like expierience points and FullCircles
+                // is like a level.
+                if (value >= MAX_PROGRESS + 1)
+                {
+                    // reset.
+                    progress = 0;
+                    FullCircles++;
+                }
+                else
+                {
+                    progress = value;
+                }
+            }
+        }
 
         /// <summary>
         /// The amount of times the lesson has been completed fully.
