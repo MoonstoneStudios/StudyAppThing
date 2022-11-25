@@ -8,19 +8,11 @@ using System.Threading.Tasks;
 
 namespace StudyAppThing.Models.Questions
 {
-    /// <summary>
-    /// A question where the user has to type their response.
-    /// </summary>
-    public class FreeResponseQuestion : Question
+    public class TrueOrFalseQuestion : Question
     {
-        /// <summary>
-        /// The least amount of differance between the answer and the response.
-        /// </summary>
-        public const double ANSWER_TOLERANCE = 2;
+        public override QuestionType QuestionType => QuestionType.TrueOrFalse;
 
-        public override QuestionType QuestionType => QuestionType.FreeResponse;
-
-        public override string HeaderText => "Type the Correct Answer";
+        public override string HeaderText => "Select the Correct Answer";
 
         public override bool HasBecause => true;
 
@@ -32,17 +24,7 @@ namespace StudyAppThing.Models.Questions
         /// <summary>
         /// The answer.
         /// </summary>
-        public string Answer { get; set; }
-
-        /// <summary>
-        /// Why the answer is correct.
-        /// </summary>
-        public string CorrectBecause { get; set; }
-
-        /// <summary>
-        /// Why the answer is not correct.
-        /// </summary>
-        public string IncorrectBecause { get; set; }
+        public bool Answer { get; set; }
 
         /// <summary>
         /// An image to be displayed.
@@ -61,25 +43,24 @@ namespace StudyAppThing.Models.Questions
         public bool HasImage => !string.IsNullOrEmpty(Image);
 
         /// <summary>
-        /// Responses that will always be marked incorrect.
+        /// Why the answer is correct.
         /// </summary>
-        public string[] ExplicitlyIncorrect { get; set; }
+        public string CorrectBecause { get; set; }
 
         /// <summary>
-        /// If there should be spellcheck.
+        /// Why the answer is not correct.
         /// </summary>
-        public bool SpellCheck { get; set; } = true;
+        public string IncorrectBecause { get; set; }
 
         /// <summary>
         /// Get the because.
         /// </summary>
-        /// <param name="data">The data is if the question was answered correctly.</param>
+        /// <param name="data">If the question was correct.</param>
         /// <returns></returns>
         public override string GetBecause(object data)
         {
-            var correct = (bool)data;
-            return correct ? CorrectBecause : IncorrectBecause;
+            bool b = (bool)data;
+            return b ? CorrectBecause : IncorrectBecause;
         }
-
     }
 }

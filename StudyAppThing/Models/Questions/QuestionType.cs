@@ -21,6 +21,11 @@ namespace StudyAppThing.Models.Questions
         /// The user is presented with a text box and needs to
         /// type in the correct answer.
         /// </summary>
-        FreeResponse
+        FreeResponse,
+
+        /// <summary>
+        /// A true or false question.
+        /// </summary>
+        TrueOrFalse
     }
 }

@@ -128,6 +128,14 @@ namespace StudyAppThing.ViewModels
                         };
                         QuestionViewModel.PropertyChanged += QuestionVMChanged;
                         break;
+                    case QuestionType.TrueOrFalse:
+                        var tof = CurrentQuestion as TrueOrFalseQuestion;
+                        QuestionViewModel = new TrueOrFalseQuestionViewModel()
+                        {
+                            Question = tof
+                        };
+                        QuestionViewModel.PropertyChanged += QuestionVMChanged;
+                        break;
                     default:
                         break;
                 }

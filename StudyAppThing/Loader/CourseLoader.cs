@@ -271,11 +271,29 @@ namespace StudyAppThing.Loader
                             questions.Add(q);
                             break;
                         }
+                    case nameof(QuestionType.TrueOrFalse):
+                        {
+                            TrueOrFalseQuestion q =
+                                JsonConvert.DeserializeObject<TrueOrFalseQuestion>(question.ToString());
+
+                            if (q.HasImage)
+                            {
+                                using (FileStream stream = File.OpenRead(FilePath.Combine(zipDir, "Assets", q.Image)))
+                                {
+                                    // 500 as placeholder for now
+                                    q.ImageBitmap = Bitmap.DecodeToWidth(stream, 500);
+                                }
+                            }
+
+                            questions.Add(q);
+                            break;
+                        }
                 }
             }
 
             // set the questions
-            lesson.Questions = questions;
+            // add to existing list in case questions are in different files.
+            lesson.Questions = lesson.Questions.Concat(questions).ToList();
         }
 
     }
