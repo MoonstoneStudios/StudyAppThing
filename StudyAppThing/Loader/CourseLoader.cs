@@ -310,6 +310,47 @@ namespace StudyAppThing.Loader
                             questions.Add(q);
                             break;
                         }
+                    case nameof(QuestionType.FillInTheBlank):
+                        {
+                            List<string> choices = new List<string>();
+                            List<string> because = new List<string>();
+
+                            foreach (var item in (JArray)question["Choices"])
+                            {
+                                // if there is a because.
+                                if (item is JArray array)
+                                {
+                                    // the answer.
+                                    choices.Add((string)array[0]);
+                                    // the because
+                                    because.Add((string)array[1]);
+                                }
+                                else
+                                {
+                                    // just an answer.
+                                    choices.Add((string)item);
+                                }
+                            }
+
+                            FillInTheBlankQuestion q =
+                                JsonConvert.DeserializeObject<FillInTheBlankQuestion>(question.ToString());
+
+                            q.Choices = choices.ToArray();
+                            q.ChoicesUnshuffled = choices.ToArray();
+                            q.Because = because.ToArray();
+
+                            if (q.HasImage)
+                            {
+                                using (FileStream stream = File.OpenRead(FilePath.Combine(zipDir, "Assets", q.Image)))
+                                {
+                                    // 500 as placeholder for now
+                                    q.ImageBitmap = Bitmap.DecodeToWidth(stream, 500);
+                                }
+                            }
+                            q.Shuffle();
+                            questions.Add(q);
+                            break;
+                        }
                 }
             }
 

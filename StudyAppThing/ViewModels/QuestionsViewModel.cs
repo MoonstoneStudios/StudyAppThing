@@ -144,6 +144,15 @@ namespace StudyAppThing.ViewModels
                         };
                         QuestionViewModel.PropertyChanged += QuestionVMChanged;
                         break;
+                    case QuestionType.FillInTheBlank:
+                        var fill = CurrentQuestion as FillInTheBlankQuestion;
+                        fill.Shuffle();
+                        QuestionViewModel = new MulChoiceQuestionViewModel()
+                        {
+                            Question = fill
+                        };
+                        QuestionViewModel.PropertyChanged += QuestionVMChanged;
+                        break;
                     default:
                         break;
                 }

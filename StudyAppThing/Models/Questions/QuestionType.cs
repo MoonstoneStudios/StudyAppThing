@@ -32,6 +32,12 @@ namespace StudyAppThing.Models.Questions
         /// A question where a user is provided text to translate
         /// and must type out the response.
         /// </summary>
-        TranslateFreeResponse
+        TranslateFreeResponse,
+
+        /// <summary>
+        /// A question where a user is provided text and must select
+        /// the answer that fits the blank best.
+        /// </summary>
+        FillInTheBlank
     }
 }
