@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace StudyAppThing.ViewModels.Questions
@@ -46,15 +47,22 @@ namespace StudyAppThing.ViewModels.Questions
 
         public override bool Evaluate()
         {
+            // credit: https://stackoverflow.com/a/5871826
+            // remove all punctuation
+            var r = Regex.Replace(Response, @"[^\w\s]", "").ToLower();
+            var a = Regex.Replace(Question.Answer, @"[^\w\s]", "").ToLower();
+            // end credit
+
             // if the response is the same.
-            if (Response.ToLower() == Question.Answer.ToLower())
+            if (r == a)
             {
                 ExactAnswerProvided = true;
+                correct = true;
                 return true;
             }
 
             // if the response is explicitly incorrect
-            if (Question.ExplicitlyIncorrect.Contains(Response.ToLower()))
+            if (Question.ExplicitlyIncorrect.Contains(r))
             {
                 correct = false;
                 return false;
@@ -63,7 +71,7 @@ namespace StudyAppThing.ViewModels.Questions
             if (Question.SpellCheck)
             {
                 var dam = new Damerau();
-                var similarity = dam.Distance(Question.Answer.ToLower(), Response.ToLower());
+                var similarity = dam.Distance(a, r);
                 correct = false;
 
                 // similar enough to the string.

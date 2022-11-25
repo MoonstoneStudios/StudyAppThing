@@ -26,6 +26,12 @@ namespace StudyAppThing.Models.Questions
         /// <summary>
         /// A true or false question.
         /// </summary>
-        TrueOrFalse
+        TrueOrFalse,
+
+        /// <summary>
+        /// A question where a user is provided text to translate
+        /// and must type out the response.
+        /// </summary>
+        TranslateFreeResponse
     }
 }

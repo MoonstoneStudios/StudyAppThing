@@ -136,6 +136,14 @@ namespace StudyAppThing.ViewModels
                         };
                         QuestionViewModel.PropertyChanged += QuestionVMChanged;
                         break;
+                    case QuestionType.TranslateFreeResponse:
+                        var trfq = CurrentQuestion as TranslateFreeResponseQuestion;
+                        QuestionViewModel = new FreeResponseQuestionViewModel()
+                        {
+                            Question = trfq
+                        };
+                        QuestionViewModel.PropertyChanged += QuestionVMChanged;
+                        break;
                     default:
                         break;
                 }

@@ -288,6 +288,28 @@ namespace StudyAppThing.Loader
                             questions.Add(q);
                             break;
                         }
+                    case nameof(QuestionType.TranslateFreeResponse):
+                        {
+                            TranslateFreeResponseQuestion q =
+                                JsonConvert.DeserializeObject<TranslateFreeResponseQuestion>(question.ToString());
+
+                            if (q.HasImage)
+                            {
+                                using (FileStream stream = File.OpenRead(FilePath.Combine(zipDir, "Assets", q.Image)))
+                                {
+                                    // 500 as placeholder for now
+                                    q.ImageBitmap = Bitmap.DecodeToWidth(stream, 500);
+                                }
+                            }
+
+                            for (int i = 0; i < q.ExplicitlyIncorrect.Length; i++)
+                            {
+                                q.ExplicitlyIncorrect[i] = q.ExplicitlyIncorrect[i].ToLower();
+                            }
+
+                            questions.Add(q);
+                            break;
+                        }
                 }
             }
 
