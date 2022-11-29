@@ -351,6 +351,25 @@ namespace StudyAppThing.Loader
                             questions.Add(q);
                             break;
                         }
+                    case nameof(QuestionType.SelectMultiple):
+                        {
+                            SelectMultipleQuestion q =
+                                JsonConvert.DeserializeObject<SelectMultipleQuestion>(question.ToString());
+
+                            //Array.Copy(q.Choices, q.ChoicesUnshuffled, q.Choices.Length);
+
+                            if (q.HasImage)
+                            {
+                                using (FileStream stream = File.OpenRead(FilePath.Combine(zipDir, "Assets", q.Image)))
+                                {
+                                    // 500 as placeholder for now
+                                    q.ImageBitmap = Bitmap.DecodeToWidth(stream, 500);
+                                }
+                            }
+                            q.Shuffle();
+                            questions.Add(q);
+                            break;
+                        }
                 }
             }
 

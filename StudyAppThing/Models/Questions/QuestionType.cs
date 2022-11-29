@@ -38,6 +38,12 @@ namespace StudyAppThing.Models.Questions
         /// A question where a user is provided text and must select
         /// the answer that fits the blank best.
         /// </summary>
-        FillInTheBlank
+        FillInTheBlank,
+
+        /// <summary>
+        /// Just like <see cref="MulChoice"/>, 
+        /// but more than one response can be selected.
+        /// </summary>
+        SelectMultiple
     }
 }

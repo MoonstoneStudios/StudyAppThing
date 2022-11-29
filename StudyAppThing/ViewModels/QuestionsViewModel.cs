@@ -153,6 +153,15 @@ namespace StudyAppThing.ViewModels
                         };
                         QuestionViewModel.PropertyChanged += QuestionVMChanged;
                         break;
+                    case QuestionType.SelectMultiple:
+                        var sm = CurrentQuestion as SelectMultipleQuestion;
+                        sm.Shuffle();
+                        QuestionViewModel = new SelectMultipleQuestionViewModel()
+                        {
+                            Question = sm
+                        };
+                        QuestionViewModel.PropertyChanged += QuestionVMChanged;
+                        break;
                     default:
                         break;
                 }
