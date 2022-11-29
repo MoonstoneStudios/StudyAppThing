@@ -69,9 +69,12 @@ namespace StudyAppThing.Loader
             }
 
             // get the folder created by the zip folder.
-            // it has the same name.
-            // TODO: just get the first folder, instead of name.
-            var zipDir = tempDir + "\\" + zipName;
+            // this will get the first folder because it
+            // should be the only folder
+            var folder = Directory.GetDirectories(tempDir)[0];
+            // get the name of the folder
+            var folderName = FilePath.GetFileNameWithoutExtension(folder);
+            var zipDir = tempDir + "\\" + folderName;
             var files = Directory.GetFiles(zipDir, "*.json", SearchOption.AllDirectories);
 
             // load the course file first
