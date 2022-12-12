@@ -84,5 +84,10 @@ namespace StudyAppThing.Models
         /// </summary>
         [JsonIgnore]
         public Bitmap ImageBitmap { get; set; }
+
+        /// <summary>
+        /// A list of flashcards for this lesson.
+        /// </summary>
+        public List<FlashCard> FlashCards { get; set; } = new List<FlashCard>();
     }
 }

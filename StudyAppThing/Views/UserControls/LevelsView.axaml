@@ -32,11 +32,16 @@
 						<!--The flyout-->
 						<FlyoutBase.AttachedFlyout>
 							<Flyout Placement="Bottom">
-								<Grid>
+								<StackPanel Orientation="Vertical">
 									<Button Content="{Binding Name, StringFormat='Practice {0}!'}"
 											Command="{Binding #Control.DataContext.StartLessonCommand}"
-											CommandParameter="{Binding Number, Converter={StaticResource IntConverter}}"/>
-								</Grid>
+											CommandParameter="{Binding Number, Converter={StaticResource IntConverter}}"
+											HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+									<Button Content="{Binding Name, StringFormat='Review Flash Cards For {0}!'}" 
+											Command="{Binding #Control.DataContext.GoToFlashCardsCommand}"
+											CommandParameter="{Binding Number, Converter={StaticResource IntConverter}}"
+											IsVisible="{Binding !!FlashCards.Count}"/>
+								</StackPanel>
 							</Flyout>
 						</FlyoutBase.AttachedFlyout>
 					</controls:LessonIconView>

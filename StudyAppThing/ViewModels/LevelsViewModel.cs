@@ -71,6 +71,16 @@ namespace StudyAppThing.ViewModels
         {
             ViewSwitcher.SwitchView(new QuestionsViewModel(int.Parse(lesson)));
         }
+
+        /// <summary>
+        /// The command to go to the flash cards.
+        /// </summary>
+        /// <param name="lesson"></param>
+        [RelayCommand]
+        public void GoToFlashCards(string lesson)
+        {
+            ViewSwitcher.SwitchView(new StudyLessonFlashCardsViewModel(int.Parse(lesson)));
+        }
     }
 
     /// <summary>

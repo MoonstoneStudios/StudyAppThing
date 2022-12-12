@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:controls="using:StudyAppThing.Views.UserControls"
+			 xmlns:vms="using:StudyAppThing.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="StudyAppThing.Views.StudyLessonFlashCardsView">
+	
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<!--Side Bar-->
+			<ColumnDefinition Width="*" />
+			<!--Main Content-->
+			<ColumnDefinition Width="4*" />
+		</Grid.ColumnDefinitions>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<!--0, 0-->
+		<controls:SideBarView />
+
+		<Grid RowDefinitions="Auto,*,Auto" Grid.Column="1">
+			<StackPanel VerticalAlignment="Stretch">
+				<TextBlock Text="{Binding Lesson.Name, StringFormat='Review Flash Cards for {0}!'}" Classes="h1"
+						   Foreground="Black" VerticalAlignment="Top"
+						   Margin="20"/>
+
+				<Separator Background="LightGray" Height="4"
+						   HorizontalAlignment="Stretch" Margin="20,5,20,10" />
+
+			</StackPanel>
+
+			<Border BoxShadow="0 5 10 2 Gray" HorizontalAlignment="Stretch" 
+					VerticalAlignment="Stretch" Grid.Row="1" 
+					Background="Transparent" PointerPressed="FlashCardClicked"
+					MinWidth="400" MinHeight="250"
+					MaxWidth="800" MaxHeight="500">
+				<Grid ColumnDefinitions="*,Auto">
+					<Panel HorizontalAlignment="Stretch"
+							VerticalAlignment="Stretch">
+						<TextBlock Text="{Binding StringToShow}" TextAlignment="Center"
+								   VerticalAlignment="Center"/>
+					</Panel>
+					<Image Source="{Binding ImageToShow}" Grid.Column="1"
+							IsVisible="{Binding ImageToShow, Converter={x:Static ObjectConverters.IsNotNull}}"
+							Width="200" Stretch="Uniform" />
+				</Grid>
+			</Border>
+
+			<Grid Grid.Row="2" ColumnDefinitions="*,*,*"
+				  Margin="5,0,5,50">
+				<Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" 
+						Height="100" Content="I Know This!" 
+						Grid.Column="0" Margin="5" />
+				<Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+						Height="100" Content="I Kinda Know This, But I Need More Review!"
+						Grid.Column="1" Margin="5" />
+				<Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+						Height="100" Content="I Do Not Know This!"
+						Grid.Column="2" Margin="5" />
+			</Grid>
+			
+		</Grid>
+	</Grid>
+</UserControl>

@@ -6,8 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO.Compression;
 using System.IO;
-
-using FilePath = System.IO.Path;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 using YamlDotNet.RepresentationModel;
@@ -15,6 +13,8 @@ using StudyAppThing.Models.Questions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Avalonia.Media.Imaging;
+
+using FilePath = System.IO.Path;
 
 namespace StudyAppThing.Loader
 {
@@ -97,8 +97,16 @@ namespace StudyAppThing.Loader
                 var name = FilePath.GetFileNameWithoutExtension(file);
                 // already loaded file.
                 if (name == "Course") { continue; }
-                // load the question
-                LoadQuestionFile(file, course, zipDir);
+                else if (name == "Flash Cards") 
+                { 
+                    // load the flah card
+                    LoadFlashCards(course, file, zipDir); 
+                }
+                else
+                {
+                    // load the question
+                    LoadQuestionFile(file, course, zipDir);
+                }
             }
 
             // remove the temp folder, everything has been loaded.
@@ -381,5 +389,58 @@ namespace StudyAppThing.Loader
             lesson.Questions = lesson.Questions.Concat(questions).ToList();
         }
 
+        /// <summary>
+        /// Load the flash cards.
+        /// </summary>
+        /// <param name="course">The course.</param>
+        /// <param name="file">The directory to the flash card file.</param>
+        private void LoadFlashCards(Course course, string file, string zipDir)
+        {
+            var text = File.ReadAllText(file);
+            // load in the root file.
+            JObject rootObject = JObject.Parse(text);
+
+            // get the lesson and unit number from the file.
+            var unitNumber = (int)rootObject["Unit"];
+            var lessonNumber = (int)rootObject["Lesson"];
+
+            // get the lesson and unit the questions are part of.
+            Unit unit = course.Units.Where(u => u.UnitNumber == unitNumber).First();
+            Lesson lesson = unit.Lessons.Where(l => l.Number == lessonNumber).First();
+
+            List<FlashCard> flashCards = new List<FlashCard>();
+
+            // get the array of flashcard object
+            JArray array = (JArray)rootObject["FlashCards"];
+            foreach (JObject flashCard in array.Cast<JObject>())
+            {
+                // deserialize the flashcard
+                FlashCard card = JsonConvert.DeserializeObject<FlashCard>(flashCard.ToString());
+
+                // if there is a word image.
+                if (card.WordHasImage)
+                {
+                    using (FileStream stream = File.OpenRead(FilePath.Combine(zipDir, "Assets", card.WordImage)))
+                    {
+                        // 500 as placeholder for now
+                        card.WordImageBitmap = Bitmap.DecodeToWidth(stream, 500);
+                    }
+                }
+                // if there is a definition image.
+                if (card.DefinitionHasImage)
+                {
+                    using (FileStream stream = File.OpenRead(FilePath.Combine(zipDir, "Assets", card.DefinitionImage)))
+                    {
+                        // 500 as placeholder for now
+                        card.DefinitionImageBitmap = Bitmap.DecodeToWidth(stream, 500);
+                    }
+                }
+
+                // add the flashcard to the list.
+                flashCards.Add(card);
+            }
+
+            lesson.FlashCards = flashCards;
+        }
     }
 }
