@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vms="using:StudyAppThing.ViewModels"
+			 xmlns:views="using:StudyAppThing.Views.UserControls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="StudyAppThing.Views.FinishedFlashCardsView">
+
+	<UserControl.DataContext>
+		<vms:FinishedFlashCardsViewModel />
+	</UserControl.DataContext>
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<!--Side Bar-->
+			<ColumnDefinition Width="*" />
+			<!--Main Content-->
+			<ColumnDefinition Width="4*" />
+		</Grid.ColumnDefinitions>
+
+		<Grid.RowDefinitions>
+			<!--Main Content-->
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<views:SideBarView />
+
+		<TextBlock Grid.Column="1">
+			Finished!
+		</TextBlock>
+
+	</Grid>
+
+</UserControl>
